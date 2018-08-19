@@ -59,16 +59,43 @@ database.ref().on('child_added', function (childSnapShot) {
 
 
     //moments stuff here.....
+var tFrequency = frequency;
 
+var baseTime = firstTrain;
 
+var baseTimeConverted = moment(baseTime, "HH:mm")
+.subtract(1, "years");
+console.log(baseTimeConverted);
 
+//current time...
+var currentTime = moment();
+console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+
+//difference between the times...
+var diffTime = moment().diff(moment(baseTimeConverted), 'minutes');
+
+//find the remainder...
+
+var remainder = diffTime % tFrequency;
+console.log(remainder);
+
+//Minutes until train...
+var timeToTrain = tFrequency - remainder;
+
+//next train arrives at...
+var ttTrain = moment().add(timeToTrain, 'minutes');
+
+//mins away...
+var minsAway = ttTrain - currentTime;
 
     //create new row for table...
     var newRow = $("<tr>").append(
         $("<td>").text(trainName),
         $("<td>").text(destName),
-        $("<td>").text(firstTrain),
         $("<td>").text(frequency),
+        $("<td>").text(ttTrain.format("hh:mm")),
+        $('<td>').text(minsAway),
+        
     );
 
     //append new row to table...
