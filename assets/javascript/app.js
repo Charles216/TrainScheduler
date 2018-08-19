@@ -75,9 +75,8 @@ console.log("Current Time: " + moment(currentTime).format("hh:mm"));
 var diffTime = moment().diff(moment(baseTimeConverted), 'minutes');
 
 //find the remainder...
-
 var remainder = diffTime % tFrequency;
-console.log(remainder);
+console.log("remainder = " + remainder);
 
 //Minutes until train...
 var timeToTrain = tFrequency - remainder;
@@ -86,7 +85,7 @@ var timeToTrain = tFrequency - remainder;
 var ttTrain = moment().add(timeToTrain, 'minutes');
 
 //mins away...
-var minsAway = ttTrain - currentTime;
+var minsAway = tFrequency - remainder;
 
     //create new row for table...
     var newRow = $("<tr>").append(
